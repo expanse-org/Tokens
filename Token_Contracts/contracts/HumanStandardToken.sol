@@ -12,6 +12,7 @@ Machine-based, rapid creation of many tokens would not necessarily need these ex
 .*/
 
 import "./StandardToken.sol";
+import "./Balances.sol";
 
 pragma solidity ^0.4.8;
 
@@ -33,15 +34,17 @@ contract HumanStandardToken is StandardToken {
     string public name;                   //fancy name: eg Simon Bucks
     uint8 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It's like comparing 1 wei to 1 ether.
     string public symbol;                 //An identifier: eg SBX
-    string public version = 'H0.1';       //human 0.1 standard. Just an arbitrary versioning scheme.
+    string public version = 'H0.2';       //human 0.1 standard. Just an arbitrary versioning scheme.
 
     function HumanStandardToken(
         uint256 _initialAmount,
         string _tokenName,
         uint8 _decimalUnits,
-        string _tokenSymbol
+        string _tokenSymbol,
+        address _balancesAccount
         ) {
-        balances[msg.sender] = _initialAmount;               // Give the creator all initial tokens
+        balances = Balances(_balancesAccount);
+        balances.incBalance(msg.sender, _initialAmount);              // Give the creator all initial tokens
         totalSupply = _initialAmount;                        // Update total supply
         name = _tokenName;                                   // Set the name for display purposes
         decimals = _decimalUnits;                            // Amount of decimals for display purposes
@@ -50,7 +53,7 @@ contract HumanStandardToken is StandardToken {
 
     /* Approves and then calls the receiving contract */
     function approveAndCall(address _spender, uint256 _value, bytes _extraData) returns (bool success) {
-        allowed[msg.sender][_spender] = _value;
+        balances.setApprove(msg.sender, _spender, _value);
         Approval(msg.sender, _spender, _value);
 
         //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.

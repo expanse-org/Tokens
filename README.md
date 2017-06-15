@@ -1,8 +1,17 @@
 # Tokens
 
-This repo contains Solidity smart contract code to issue simple, standards-compliant tokens on Ethereum. It can be used to create any form of asset, currency, coin, hours, usage tokens, vunk, etc.  
+This repo contains Solidity smart contract code to issue simple, standards-compliant tokens on Ethereum/Expanse. It can be used to create any form of asset, currency, coin, hours, usage tokens, vunk, etc.  
 
-The default is StandardToken.sol which ONLY implements the core ERC20 standard functionality [#20](https://github.com/ethereum/EIPs/issues/20).  
+# Structure
+
+## Balances
+
+Balances are abstracted into in the Balances.sol contract. The balances also has a mapping of addresses that either do or dont have permission to manipulate the data in the balances contract. This allows for the tokens functionality to be extended and allows for business logic to be upgradeable.
+
+## Issuance Modules
+Issuance modules are modules that extend the functionality of the token. Examples, Standard token, stake, basic income, lottery, etc.
+
+The default IM is StandardToken.sol which ONLY implements the core ERC20 standard functionality [#20](https://github.com/ethereum/EIPs/issues/20).  
 
 HumanStandardToken.sol is an example of a token that has optional extras fit for your issuing your own tokens, to be mainly used by other humans. It includes:  
 
@@ -12,7 +21,13 @@ HumanStandardToken.sol is an example of a token that has optional extras fit for
 
 There is a set of tests written for the HumanStandardToken.sol using the Truffle framework to do so.
 
-Standards allows other contract developers to easily incorporate your token into their application (governance, exchanges, games, etc). It will be updated as often as possible.  
+Standards allows other contract developers to easily incorporate your token into their application (governance, exchanges, games, etc). It will be updated as often as possible.
+
+## Deploying
+
+ - Launch Balances.sol
+ - Launch HumanStandardToken with the contract address you got from deploying balances.sol
+ - Update Balances contract by setModule(HumanStandardTokenAddress, true);
 
 ## Testing
 
