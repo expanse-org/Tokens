@@ -4,7 +4,7 @@ contract Balances {
   // GLOBAL VARS
   address public root;
 
-  uint totalSupply;
+  uint public totalSupply;
 
   // EVENTS
   event BalanceAdj(address indexed Module, address indexed Account, uint Amount, string Polarity);
@@ -32,7 +32,7 @@ contract Balances {
   function Balances(uint256 _initialAmount){
     root = msg.sender;
     balances[msg.sender] = _initialAmount;
-    totalSupply+=initialAmount;
+    totalSupply+=_initialAmount;
   }
 
   // GET BALANCE
@@ -42,13 +42,13 @@ contract Balances {
 
   // UPDATE BALANCE FUNCTIONS
   function incBalance(address _acct, uint _val) onlyModule returns(bool success){
-    balances[msg.sender]+=_val;
+    balances[_acct]+=_val;
     BalanceAdj(msg.sender, _acct, _val, "+");
     return true;
   }
 
   function decBalance(address _acct, uint _val) onlyModule returns(bool success){
-    balances[msg.sender]-=_val;
+    balances[_acct]-=_val;
     BalanceAdj(msg.sender, _acct, _val, "-");
     return true;
   }

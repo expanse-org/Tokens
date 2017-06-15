@@ -55,4 +55,8 @@ contract StandardToken is Token {
       return balances.getAllowance(_owner, _spender);
     }
 
+    function totalSupply() returns(uint256){
+      return balances.getTotalSupply();
+    }
+
 }
