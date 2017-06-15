@@ -32,7 +32,7 @@ contract Balances {
   function Balances(uint256 _initialAmount){
     root = msg.sender;
     balances[msg.sender] = _initialAmount;
-    totalSupply++_initialAmount;
+    totalSupply+=initialAmount;
   }
 
   // GET BALANCE

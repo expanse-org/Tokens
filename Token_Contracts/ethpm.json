@@ -1,14 +1,16 @@
 {
   "package_name": "tokens",
-  "version": "0.0.2",
-  "description": "Ethereum Token Contracts",
+  "version": "0.0.3",
+  "description": "Ethereum/Expanse Token Contracts",
   "authors": [
     "Simon de la Rouviere <simon.delarouviere@consensys.net>",
     "Joseph Chow <joseph.chow@consensys.net>",
+    "Christopher Franko <christopher@expanse.tech>"
   ],
   "keywords": [
     "tokens",
-    "consensys"
+    "consensys",
+    "borderless"
   ],
   "license": "MIT"
 }
