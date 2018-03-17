@@ -31,9 +31,9 @@ contract StandardToken is Token {
     function transferFrom(address _from, address _to, uint256 _value) returns (bool success) {
         //same as above. Replace this line with the following if you want to protect against wrapping uints.
         //if (balances[_from] >= _value && allowed[_from][msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
-        if (balances.getBalance(msg.sender) >= _value && balances.getBalance(_to) + _value > balances.getBalance(_to) && _value > 0) {
+        if (balances.getBalance(_from) >= _value && balances.getBalance(_to) + _value > balances.getBalance(_to) && _value > 0) {
             balances.incBalance(_to, _value);
-            balances.decBalance(msg.sender, _value);
+            balances.decBalance(_from, _value);
             balances.decApprove(_from, msg.sender, _value);
             Transfer(_from, _to, _value);
             return true;
